@@ -1,0 +1,15 @@
+{
+	"name": "Protein interaction prediction for 6 organisms with 5k pairs each",
+	"description": "The main goal of this experiment is evaluate the PredRep workflow against large data from 6 different species.",
+	"owner": "Yasmmin",
+	"email": "yasmmin.c.martins@gmail.com",
+	"datasets": [
+		{ "prefix": "random_ds_5000_", "folder": "/home/yasminn/Documentos/tese/predrep_as_workflow/data_exp_organism/a_thaliana/random_ds_5000/", "description": "5k pairs, 50% from HINT and String with 800 to 1000 as confidence score and 50% from string from 100 to 200 as confidence score for a_thaliana" },
+		{ "prefix": "random_ds_5000_", "folder": "/home/yasminn/Documentos/tese/predrep_as_workflow/data_exp_organism/c_elegans/random_ds_5000/", "description": "5k pairs, 50% from HINT and String with 800 to 1000 as confidence score and 50% from string from 100 to 200 as confidence score for c_elegans" },
+		{ "prefix": "random_ds_5000_", "folder": "/home/yasminn/Documentos/tese/predrep_as_workflow/data_exp_organism/d_melanogaster/random_ds_5000/", "description": "5k pairs, 50% from HINT and String with 800 to 1000 as confidence score and 50% from string from 100 to 200 as confidence score for d_melanogaster" },
+		{ "prefix": "random_ds_5000_", "folder": "/home/yasminn/Documentos/tese/predrep_as_workflow/data_exp_organism/e_coli/random_ds_5000/", "description": "5k pairs, 50% from HINT and String with 800 to 1000 as confidence score and 50% from string from 100 to 200 as confidence score for e_coli" },
+		{ "prefix": "random_ds_5000_", "folder": "/home/yasminn/Documentos/tese/predrep_as_workflow/data_exp_organism/h_sapiens/random_ds_5000/", "description": "5k pairs, 50% from HINT and String with 800 to 1000 as confidence score and 50% from string from 100 to 200 as confidence score for h_sapiens " },
+		{ "prefix": "random_ds_5000_", "folder": "/home/yasminn/Documentos/tese/predrep_as_workflow/data_exp_organism/m_musculus/random_ds_5000/", "description": "5k pairs, 50% from HINT and String with 800 to 1000 as confidence score and 50% from string from 100 to 200 as confidence score for m_musculus" },
+		{ "prefix": "random_ds_5000_", "folder": "/home/yasminn/Documentos/tese/predrep_as_workflow/data_exp_organism/s_cerevisiae/random_ds_5000/", "description": "5k pairs, 50% from HINT and String with 800 to 1000 as confidence score and 50% from string from 100 to 200 as confidence score for s_cerevisiae" }
+    ]
+}
