@@ -2,7 +2,7 @@ import smtp
 import os
 class Communication:
 	def send_success_email(task: luigi.Task) -> None:
-		fromaddr = "ycfrenchgirl2@gmail.com"
+		fromaddr = "example@gmail.com"
         toaddr = os.environ['email_owner']
         msg = MIMEMultipart()
         msg['From'] = fromaddr
@@ -34,7 +34,7 @@ class Communication:
 
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
-        server.login(fromaddr, "Marcos1*_mendonca3&fazecas2")
+        server.login(fromaddr, "password")
         text = msg.as_string()
         server.sendmail(fromaddr, toaddr, text)
         server.quit()

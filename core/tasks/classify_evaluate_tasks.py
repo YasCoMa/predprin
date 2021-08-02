@@ -281,7 +281,7 @@ class ProcessDataForClassification(luigi.Task, TimeTaskMixin):
 		X=np.array(X)
 		y=np.array(y)
 
-		X = StandardScaler().fit_transform(X)
+		#X = StandardScaler().fit_transform(X)
 
 		X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.4, random_state=42)
 		np.save(self.folder+"x_train", X_train)

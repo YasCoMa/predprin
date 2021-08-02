@@ -67,7 +67,7 @@ The steps below consider the creation of a sqlite database file with all he task
 * Running:
 	1. ````mkdir luigi_log```` (or other name for the log folder of your choice)
 	2. ````luigid --background --logdir luigi_log```` (start luigi server)
-	3. ````nohup python3.5 -m luigi --module main RunPPIExperiment --parameters-file params.json --mode 'train' --model --workers 3 &```` <br >
+	3. ````nohup python3.5 -m luigi --module main RunPPIExperiment --parameters-file params.json --mode 'train' --model none.joblib --workers 3 &```` <br >
 	   ````nohup python3.5 -m luigi --module main RunPPIExperiment --parameters-file params.json --mode 'test' --model model.jolib --workers 3 &```` <br >
 		- Replace python3.5 by the command python of your environment <br>
 		- Replace the data given as example in params.json using your own data <br > 

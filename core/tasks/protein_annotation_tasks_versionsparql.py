@@ -49,8 +49,6 @@ class GetInfoPairsTask(luigi.Task, TimeTaskMixin):
 			p1=l[0]
 			p2=l[1]
 			
-			#new_proteins.append(p1)
-			#new_proteins.append(p2)
 			if(not p1 in list_annotated and not p1 in new_proteins):
 				new_proteins.append(p1)
 			
@@ -73,49 +71,15 @@ class GetInfoPairsTask(luigi.Task, TimeTaskMixin):
 			pfam_ids=[]
 
 			try:
-				gos=[]
-				f=open("rdf_data/"+protein+".rdf")
-				for line in f:
-					l=line.replace("\n","")
-					
-					if(l.find("/pfam/")!=-1 and l.find("rdf:resource")!=-1):
-						pfam=l.split(" ")[1].replace("\"","").replace("/>","").replace("rdf:resource=http://purl.uniprot.org/pfam/","")
-						if(not pfam in pfam_ids):
-							pfam_ids.append(pfam)
-					#if(l.find("/interpro/")):
-					#	pfam=l.split(" ")[1].replace("\"","").replace("/>","").replace("rdf:resource=http://purl.uniprot.org/interpro/","")
-					#	if(not pfam in pfam_ids):
-					#		pfam_ids.append(pfam)
-					
-					
-					if(l.find("/ko/")!=-1 and l.find("rdf:resource")!=-1):
-						ko=l.split(" ")[1].replace("\"","").replace("/>","").replace("rdf:resource=http://purl.uniprot.org/ko/","")
-						ko_ids=ko
-							
-					if(l.find("/obo/GO")!=-1 and l.find("rdf:resource")!=-1):
-						go_term=l.split(" ")[1].replace("\"","").replace("rdf:resource=http://purl.obolibrary.org/obo/","").replace("_",":")
-						if(go_term in graph_go.nodes):
-							namespace = graph_go.nodes[go_term]['namespace']
-							if(namespace=="cellular_component"):
-								if(not go_term in go_cc_ids):
-									go_cc_ids.append(go_term)
-							if(namespace=="molecular_function"):
-								if(not go_term in go_mf_ids):
-									go_mf_ids.append(go_term)
-							if(namespace=="biological_process"):
-								if(not go_term in go_bp_ids):
-									go_bp_ids.append(go_term)	
-				f.close()
-				
-				"""g=Graph()
+				g=Graph()
 				g.parse("rdf_data/"+protein+".rdf", format="xml")
 				
 				results=g.query("""
-				#SELECT distinct ?o ?c
-				#WHERE{
-				#		?s <http://purl.uniprot.org/core/classifiedWith> ?o .
-				#		?s <http://www.w3.org/2000/01/rdf-schema#seeAlso> ?c .
-				#}
+				SELECT distinct ?o ?c
+				WHERE{
+						?s <http://purl.uniprot.org/core/classifiedWith> ?o .
+						?s <http://www.w3.org/2000/01/rdf-schema#seeAlso> ?c .
+				}
 				""")
 				namespace=""
 				for row in results.result:
@@ -149,7 +113,7 @@ class GetInfoPairsTask(luigi.Task, TimeTaskMixin):
 
 					if(info2.find("ko")!=-1):
 						ko=info2
-						ko_ids=ko.replace("http://purl.uniprot.org/ko/","")"""
+						ko_ids=ko.replace("http://purl.uniprot.org/ko/","")
 
 				if(len(go_cc_ids)==0):
 					go_cc_ids.append("None")
