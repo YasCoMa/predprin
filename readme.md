@@ -1,15 +1,15 @@
-# PredPPI
+# PredPrIn
 
 Scientific workflow to predict protein-protein interactions based in a combined analysis of multiple protein characteristics.
 
 ## Summary
-PredPPI is a scientific workflow to predict Protein-Protein Interactions (PPIs) using machine learning to combine multiple PPI detection methods of proteins according to three categories: structural,  based on primary aminoacid sequence and functional annotations.<br>
+PredPrIn is a scientific workflow to predict Protein-Protein Interactions (PPIs) using machine learning to combine multiple PPI detection methods of proteins according to three categories: structural,  based on primary aminoacid sequence and functional annotations.<br>
 
-PredPPI contains three main steps: (i) acquirement and treatment of protein information, (ii) feature generation, and (iii) classification and analysis.
+PredPrIn contains three main steps: (i) acquirement and treatment of protein information, (ii) feature generation, and (iii) classification and analysis.
 
 (i) The first step builds a knowledge base with the available annotations of proteins and reuses this base for other prediction experiments, saving time and becoming more efficient. 
 
-(ii) The feature generation step involves several evidence from different classes, such as: Gene Ontology (GO) information, domain interaction, metabolic pathway participation and sequence-based interaction. For the GO branches, we made a study to evaluate the best method to calculate semantic similarity to enhance the workflow performance. This step can be easily modified by adding new metrics, making PredPPI flexible for future improvements. 
+(ii) The feature generation step involves several evidence from different classes, such as: Gene Ontology (GO) information, domain interaction, metabolic pathway participation and sequence-based interaction. For the GO branches, we made a study to evaluate the best method to calculate semantic similarity to enhance the workflow performance. This step can be easily modified by adding new metrics, making PredPrIn flexible for future improvements. 
 
 Finally, (iii) in the third step, the adaboost classifier is responsible for predicting the final scores from the numerical features dataset, exporting results of performance evaluation metrics.
 
@@ -17,7 +17,7 @@ The figure below illustrates the steps of this workflow.
 
 <div style="text-align: center">
 	<img src="workflow.png" alt="pipeline"
-	title="PredPPI" width="680px" />
+	title="PredPrIn" width="680px" />
 </div>
 
 ## Requirements:
@@ -41,8 +41,8 @@ The figure below illustrates the steps of this workflow.
 ## Usage Instructions
 The steps below consider the creation of a sqlite database file with all he tasks events which can be used after to retrieve the execution time taken by the tasks. It is possible run locally too (see luigi's documentation to change the running command). <br ><br>
 * Preparation:
-	1. ````git clone https://github.com/YasCoMa/PredPPI.git````
-	2. ````cd PredPPI````
+	1. ````git clone https://github.com/YasCoMa/predprin.git````
+	2. ````cd PredPrIn````
 	3. Download SPRINT pre-computed similarities in https://www.csd.uwo.ca/~ilie/SPRINT/precomputed_similarities.zip and unzip it inside core/sprint/HSP/
 	4. Certify that there is a file named client.cfg (to configure the history log and feed the sqlite database). It must have the following data:
 	````
@@ -78,4 +78,4 @@ The steps below consider the creation of a sqlite database file with all he task
 ## Reference
 
 ## Bug Report
-Please, use the [Issue](https://github.com/YasCoMa/PredPPI/issues) tab to report any bug.
+Please, use the [Issue](https://github.com/YasCoMa/PredPrIn/issues) tab to report any bug.
