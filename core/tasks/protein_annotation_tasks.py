@@ -21,7 +21,7 @@ class ProteinAnnotationTask(luigi.Task, TimeTaskMixin):
 		return GetInfoPairsTask(self.folder, self.prefix)
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/protein_annotation.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "protein_annotation.txt") )
 
 class GetInfoPairsTask(luigi.Task, TimeTaskMixin):
 	folder = luigi.Parameter()
@@ -74,7 +74,7 @@ class GetInfoPairsTask(luigi.Task, TimeTaskMixin):
 
 			try:
 				gos=[]
-				f=open("rdf_data/"+protein+".rdf")
+				f=open( os.path.join("rdf_data", protein+".rdf") )
 				for line in f:
 					l=line.replace("\n","")
 					
@@ -88,8 +88,8 @@ class GetInfoPairsTask(luigi.Task, TimeTaskMixin):
 					#		pfam_ids.append(pfam)
 					
 					
-					if(l.find("/ko/")!=-1 and l.find("rdf:resource")!=-1):
-						ko=l.split(" ")[1].replace("\"","").replace("/>","").replace("rdf:resource=http://purl.uniprot.org/ko/","")
+					if(l.find("/kegg/")!=-1 and l.find("rdf:resource")!=-1):
+						ko=l.split(" ")[1].replace("\"","").replace("/>","").replace("rdf:resource=http://purl.uniprot.org/kegg/","")
 						ko_ids=ko
 							
 					if(l.find("/obo/GO")!=-1 and l.find("rdf:resource")!=-1):
@@ -192,7 +192,7 @@ class GetInfoPairsTask(luigi.Task, TimeTaskMixin):
 				else:
 					txt+=feature+"\t"
 			
-			with open("annotation_data/"+protein+".tsv", "w") as g:
+			with open( os.path.join("annotation_data", protein+".tsv"), "w") as g:
 				g.write(txt+"\n")
 	
 		self.output().open("w").close()
@@ -201,7 +201,7 @@ class GetInfoPairsTask(luigi.Task, TimeTaskMixin):
 		return DownloadRDFData_proteinTask(self.folder, self.prefix)
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/get_info_pairs.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "get_info_pairs.txt") )
 
 class DownloadRDFData_proteinTask(luigi.Task, TimeTaskMixin):
 	folder = luigi.Parameter()
@@ -241,5 +241,5 @@ class DownloadRDFData_proteinTask(luigi.Task, TimeTaskMixin):
 		self.output().open("w").close()
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/download_rdf_data.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "download_rdf_data.txt") )
 

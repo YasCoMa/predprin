@@ -56,7 +56,7 @@ class PredRep_ppi_Workflow(luigi.Task, TimeTaskMixin):
 		return PredRep_ppi_step3(self.folder, self.prefix, self.mode, self.model)
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/ppi_workflow.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "ppi_workflow.txt") )
 
 
 class PredRep_ppi_step3(luigi.Task, TimeTaskMixin):
@@ -76,7 +76,7 @@ class PredRep_ppi_step3(luigi.Task, TimeTaskMixin):
 		return PredRep_ppi_step2(self.folder, self.prefix)
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/pred_rep_step3.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "pred_rep_step3.txt") )
 
 class PredRep_ppi_step2(luigi.Task, TimeTaskMixin):
 	folder = luigi.Parameter()
@@ -93,7 +93,7 @@ class PredRep_ppi_step2(luigi.Task, TimeTaskMixin):
 		return PredRep_ppi_step1(self.folder, self.prefix)
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/pred_rep_step2.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "pred_rep_step2.txt") )
 
 class PredRep_ppi_step1(luigi.Task, TimeTaskMixin):
 	folder = luigi.Parameter()
@@ -107,7 +107,7 @@ class PredRep_ppi_step1(luigi.Task, TimeTaskMixin):
 		self.output().open("w").close()
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/pred_rep_step1.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "pred_rep_step1.txt") )
 
 # Semantic description
 # https://link.springer.com/article/10.1186/s13321-016-0168-9

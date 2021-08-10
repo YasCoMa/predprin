@@ -39,6 +39,7 @@ class GetCalculatedFeature():
 		information=['go_cc','go_bp','go_mf']
 		features=self.get_info_pair(pair[0]+","+pair[1], folder, information)
 		
+		ms=[]
 		components=['cc','bp','mf']
 		c=0
 		for branch in components:
@@ -52,9 +53,12 @@ class GetCalculatedFeature():
 				if(m==None):
 					m=0.0
 				
-			with open(folder+"dataset_ppi.txt", "a") as g:
-				g.write(" "+str(m))
+			#with open(folder+"dataset_ppi.txt", "a") as g:
+			#	g.write(" "+str(m))
+			ms.append(str(m))
 			c+=1
+			
+		return ms
 
 	def calc_write_pfam(self, pair, folder):
 		information=['pfam']
@@ -78,8 +82,10 @@ class GetCalculatedFeature():
 							pfam_=1.0
 							break
 
-		with open(folder+"dataset_ppi.txt", "a") as g:
-			g.write(" "+str(pfam_))
+		#with open(folder+"dataset_ppi.txt", "a") as g:
+		#	g.write(" "+str(pfam_))
+		
+		return str(pfam_)
 
 	def calc_write_pathway(self, pair, folder):
 		information=['ko']
@@ -109,8 +115,10 @@ class GetCalculatedFeature():
 		if(len(in_common)>1):
 			kegg=1.0
 
-		with open(folder+"dataset_ppi.txt", "a") as g:
-			g.write(" "+str(kegg))
+		#with open(folder+"dataset_ppi.txt", "a") as g:
+		#	g.write(" "+str(kegg))
+			
+		return str(kegg)
 
 	def calc_write_sequence(self, pair, folder):
 		seq_dict = np.load(folder+"seq_dict.npy", allow_pickle=True)
@@ -126,8 +134,10 @@ class GetCalculatedFeature():
 		if(float(score) > 20.0):
 			score=1.0
 
-		with open(folder+"dataset_ppi.txt", "a") as g:
-			g.write(" "+str(score))
+		#with open(folder+"dataset_ppi.txt", "a") as g:
+		#	g.write(" "+str(score))
+			
+		return str(score)
 			
 class InitializeVariablesTask(luigi.Task, TimeTaskMixin):
 	folder = luigi.Parameter()
@@ -153,12 +163,13 @@ class InitializeVariablesTask(luigi.Task, TimeTaskMixin):
 		np.save(self.folder+"pfam_interaction", pfam_interaction)
 
 		kos={}
-		f=open("map_kegg.txt","r")
+		#f=open("map_kegg.txt","r")
+		f=open("pathway_hsa.txt","r")
 		for line in f:
 			l=str(line).replace("\n","").split("\t")
 
-			if(l[0].find("path:map")!=-1):
-				ko_=l[1].split(":")[1]
+			if(l[0].find("path:hsa")!=-1):
+				ko_=l[1]
 				pathway=l[0].split(":")[1]
 				if(not ko_ in kos.keys()):
 					kos[ko_]=[]
@@ -189,7 +200,7 @@ class InitializeVariablesTask(luigi.Task, TimeTaskMixin):
 		f.close()
 
 		for p in proteins:
-			f=open("annotation_data/"+p+".tsv","r")
+			f=open(os.path.join("annotation_data", p+".tsv"),"r")
 			for line in f:
 				l=line.replace("\n","").split("\t")
 				
@@ -213,5 +224,5 @@ class InitializeVariablesTask(luigi.Task, TimeTaskMixin):
 	def requires(self):
 		return GenerateFileScoresTask(self.folder, self.prefix)
 
-	def output(self):
-		return luigi.LocalTarget(self.folder+"log/initilizing_variables.txt")
+	def output(self): 
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "initilizing_variables.txt") )

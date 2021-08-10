@@ -1,0 +1,14 @@
+{
+	"name": "Protein interaction prediction in datasets formed by reference data from validated interactions",
+	"description": "The main goal of this experiment is evaluate the PredRep workflow against the reference PPI datasets which were experimentally validated / manually curated.",
+	"owner": "Yasmmin",
+	"email": "yasmmin.c.martins@gmail.com",
+	"datasets": [
+		{ "prefix": "random_ds_1_", "folder": "/home/yasmmin/exp_predprin/version_low_score/random_ds_1/", "description": "It was built with 100 thousand positive pairs from hprd, dip and biogrid and 100 thousand false pairs from STRING (score between 100 and 200) " },
+		{ "prefix": "random_ds_2_", "folder": "/home/yasmmin/exp_predprin/version_low_score/random_ds_2/", "description": "It was built with 100 thousand positive pairs from hprd, dip and biogrid and 100 thousand false pairs from STRING (score between 100 and 200) " },
+		{ "prefix": "random_ds_3_", "folder": "/home/yasmmin/exp_predprin/version_low_score/random_ds_3/", "description": "It was built with 100 thousand positive pairs from hprd, dip and biogrid and 100 thousand false pairs from STRING (score between 100 and 200) " },
+		{ "prefix": "random_ds_4_", "folder": "/home/yasmmin/exp_predprin/version_low_score/random_ds_4/", "description": "It was built with 100 thousand positive pairs from STRING (score between 700 and 800) and 100 thousand false pairs from STRING (score between 100 and 200) " },
+		{ "prefix": "random_ds_5_", "folder": "/home/yasmmin/exp_predprin/version_low_score/random_ds_5/", "description": "It was built with 100 thousand positive pairs from STRING (score between 800 and 900) and 100 thousand false pairs from STRING (score between 200 and 300) " },
+		{ "prefix": "random_ds_6_", "folder": "/home/yasmmin/exp_predprin/version_low_score/random_ds_6/", "description": "It was built with 100 thousand positive pairs from STRING (score between 900 and 1000) and 100 thousand false pairs from STRING (score between 300 and 400) " }
+        ]
+}

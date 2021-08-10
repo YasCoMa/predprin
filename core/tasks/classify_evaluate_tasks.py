@@ -15,6 +15,7 @@ from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_sc
 import luigi
 from ..time_counter import TimeTaskMixin
 from joblib import dump, load
+import os
 
 class ClassifyEvaluateTask(luigi.Task, TimeTaskMixin):
 	folder = luigi.Parameter()
@@ -35,7 +36,7 @@ class ClassifyEvaluateTask(luigi.Task, TimeTaskMixin):
 			return ApplyModelForTestTask(self.folder, self.prefix, self.model)
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/classification_evaluation.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "classification_evaluation.txt") )
 
 class ApplyModelForTestTask(luigi.Task, TimeTaskMixin):
 	folder = luigi.Parameter()
@@ -69,7 +70,7 @@ class ApplyModelForTestTask(luigi.Task, TimeTaskMixin):
 		yield ProcessDataForClassification(self.folder)
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/model_application.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "model_application.txt") )
 
 class PlotResults(luigi.Task, TimeTaskMixin):
 	folder = luigi.Parameter()
@@ -131,7 +132,7 @@ class PlotResults(luigi.Task, TimeTaskMixin):
 		self.output().open("w").close()
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/plot_results.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "plot_results.txt") )
 
 class ClassifyCrossValidateTask(luigi.Task, TimeTaskMixin):
 	folder = luigi.Parameter()
@@ -146,7 +147,7 @@ class ClassifyCrossValidateTask(luigi.Task, TimeTaskMixin):
 		yield ProcessDataForClassification(self.folder)
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/classification_evaluation.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "classification_evaluation.txt") )
 
 class DoClassificationLogTask(luigi.Task, TimeTaskMixin):
 	folder = luigi.Parameter()
@@ -219,7 +220,7 @@ class DoClassificationLogTask(luigi.Task, TimeTaskMixin):
 		self.output().open("w").close()
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/do_classification_log.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "do_classification_log.txt") )
 
 class DoCrossValidationTask(luigi.Task, TimeTaskMixin):
 	folder = luigi.Parameter()
@@ -254,7 +255,7 @@ class DoCrossValidationTask(luigi.Task, TimeTaskMixin):
 		self.output().open("w").close()
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/do_cross_validation.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "do_cross_validation.txt") )
 
 class ProcessDataForClassification(luigi.Task, TimeTaskMixin):
 	folder = luigi.Parameter()
@@ -294,4 +295,4 @@ class ProcessDataForClassification(luigi.Task, TimeTaskMixin):
 		self.output().open("w").close()
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/process_data.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "process_data.txt") )

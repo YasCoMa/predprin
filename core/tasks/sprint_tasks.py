@@ -57,14 +57,15 @@ class GenerateFileScoresTask(luigi.Task, TimeTaskMixin):
 		return RunSprintPredictionTask(self.folder, self.prefix)
 		
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/generate_file_score.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "generate_file_score.txt") )
 
 class RunSprintPredictionTask(luigi.Task, TimeTaskMixin):
 	folder = luigi.Parameter()
 	prefix = luigi.Parameter()
 
 	def run(self):
-		arguments = [os.getcwd()+"/core/sprint/bin/predict_interactions", "-p "+self.folder+"new_protein.seq", "-h "+os.getcwd()+"/core/sprint/HSP/pre_computed_HSP", "-tr "+self.folder+"train_positive.txt", "-pos "+self.folder+"train_positive.txt", "-neg "+self.folder+"train_false.txt", "-o "+self.output().path ]
+		command = os.path.join(os.getcwd(),"core", "sprint", "bin", "predict_interactions")
+		arguments = [command, "-p "+self.folder+"new_protein.seq", "-h "+os.getcwd()+"/core/sprint/HSP/pre_computed_HSP", "-tr "+self.folder+"train_positive.txt", "-pos "+self.folder+"train_positive.txt", "-neg "+self.folder+"train_false.txt", "-o "+self.output().path ]
 		subprocess.call(" ".join(arguments), shell=True)
 		#self.output().open("w").close()
 	
@@ -72,7 +73,7 @@ class RunSprintPredictionTask(luigi.Task, TimeTaskMixin):
 		return ConcatSequencesDsToDatabaseTask(self.folder, self.prefix)
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"result.txt")
+		return luigi.LocalTarget( os.path.join(self.folder, "result.txt") )
 """
 class RunSprintPredictionTask(luigi.contrib.external_program.ExternalProgramTask, TimeTaskMixin):
 	folder = luigi.Parameter()
@@ -109,7 +110,7 @@ class ConcatSequencesDsToDatabaseTask(luigi.Task, TimeTaskMixin):
 
 		f=open(self.folder+"protein.seq","r")
 		for line in f:
-				l=line.replace("\n","")        
+				l=line.replace("\n","")
 				if(l.find(">")!=-1):
 					if(not (l in proteins) ):
 						with open(self.folder+"new_protein.seq","a") as fg:
@@ -129,7 +130,7 @@ class ConcatSequencesDsToDatabaseTask(luigi.Task, TimeTaskMixin):
 		return GetSequencesTask(self.folder, self.prefix)
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/concat_sequences.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "concat_sequences.txt") )
 
 class GetSequencesTask(luigi.Task, TimeTaskMixin):
 	folder = luigi.Parameter()
@@ -161,7 +162,7 @@ class GetSequencesTask(luigi.Task, TimeTaskMixin):
 			protein = p
 			link=protein+".fasta not found"
 			try:
-				f=open("sequence_data/"+protein+".fasta","r")
+				f=open( os.path.join("sequence_data", protein+".fasta") ,"r")
 				for line in f:
 					with open(self.folder+"protein.seq", "a") as myfile:
 						myfile.write(line)
@@ -175,7 +176,7 @@ class GetSequencesTask(luigi.Task, TimeTaskMixin):
 		return PrepareFilesTask(self.folder, self.prefix)
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/get_sequences.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "get_sequences.txt") )
 
 """
 class DownloadProteinSequenceTask(luigi.Task, TimeTaskMixin):
@@ -240,4 +241,4 @@ class PrepareFilesTask(luigi.Task, TimeTaskMixin):
 		self.output().open("w").close()
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/prepare_files.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "prepare_files.txt") )

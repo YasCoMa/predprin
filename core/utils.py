@@ -22,53 +22,53 @@ class Utils_search:
 class Communication:
 
 	def send_success_email(self, task: luigi.Task) -> None:
-	    sender_email=""
-	    sender_server=""
-	    sender_port=""
-	    sender_password=""
-	    
-	    if(sender_email!=""):
-		    fromaddr = sender_email
-		    toaddr = os.environ['email_owner']
-		    msg = MIMEMultipart()
-		    msg['From'] = fromaddr
-		    msg['To'] = toaddr
-		    name_task_class = task.task_family
-		    msg['Subject'] = name_task_class+" task ran successfully on PredRep workflow"
-		    body = "<p>\n"
-		    body += " ".join((
-			    name_task_class,
-			    "task finished successfully at",
-			    datetime.datetime.now().strftime("%H:%M:%S on %Y-%m-%d"),
-			    ))
-		    body += "\n</p>\n"
-		    # Then start mining task attributes, pick some off, and dump them to a table
-		    body += "<table align=\"left\" border=1>\n"
-		    body += "\n".join([
-			    "<tr><td>{}</td><td>{}</td></tr>".format(key, value)
-			    for key, value in (
-				    ("Task ID", task.task_id),
-				    ("Task Class Name", name_task_class),
-				    ("Parameter(s)", task.get_params()),
-				    ("Requirement(s)", task.requires()),
-				    ("Input(s)", task.input()),
-				    ("Output(s)", task.output()),
-				    )
-			    ])
-		    body += "\n</table>\n"
-		    msg.attach(MIMEText(body, 'html'))
+		sender_email=""
+		sender_server=""
+		sender_port=""
+		sender_password=""
+		
+		if(sender_email!=""):
+			fromaddr = sender_email
+			toaddr = os.environ['email_owner']
+			msg = MIMEMultipart()
+			msg['From'] = fromaddr
+			msg['To'] = toaddr
+			name_task_class = task.task_family
+			msg['Subject'] = name_task_class+" task ran successfully on PredRep workflow"
+			body = "<p>\n"
+			body += " ".join((
+				name_task_class,
+				"task finished successfully at",
+				datetime.datetime.now().strftime("%H:%M:%S on %Y-%m-%d"),
+				))
+			body += "\n</p>\n"
+			# Then start mining task attributes, pick some off, and dump them to a table
+			body += "<table align=\"left\" border=1>\n"
+			body += "\n".join([
+				"<tr><td>{}</td><td>{}</td></tr>".format(key, value)
+				for key, value in (
+					("Task ID", task.task_id),
+					("Task Class Name", name_task_class),
+					("Parameter(s)", task.get_params()),
+					("Requirement(s)", task.requires()),
+					("Input(s)", task.input()),
+					("Output(s)", task.output()),
+					)
+				])
+			body += "\n</table>\n"
+			msg.attach(MIMEText(body, 'html'))
 
-		    try:
-			    server = smtplib.SMTP(sender_server, sender_port)
-			    server.starttls()
-			    server.login(fromaddr, sender_password)
-			    text = msg.as_string()
-			    server.sendmail(fromaddr, toaddr, text)
-			    server.quit()
+			try:
+				server = smtplib.SMTP(sender_server, sender_port)
+				server.starttls()
+				server.login(fromaddr, sender_password)
+				text = msg.as_string()
+				server.sendmail(fromaddr, toaddr, text)
+				server.quit()
 
-			    valid=True
-		    except:
-			    valid=False
+				valid=True
+			except:
+				valid=False
 
 		return None
 
@@ -169,27 +169,27 @@ class PreProcessing:
 			link = "https://www.uniprot.org/uniprot/"+p+".rdf"
 			f = urllib.request.urlopen(link)
 			file = f.read()
-			f=open("rdf_data/"+p+".rdf","w")
+			f=open( os.path.join("rdf_data", p+".rdf"), "w")
 			f.writelines(str(file).replace("b'","").replace("'",'"').replace('\\"','"').replace("\\n",'\n').replace('>"','>'))
 			f.close()
 			
 			new_link=""
 			id_=p
-			f=open("rdf_data/"+p+".rdf","r")
+			f=open(os.path.join("rdf_data", p+".rdf"),"r")
 			for line in f:
-			    l=line.replace("\n","")
-			    if(l.find("replacedBy")!=-1):
-			        new_link=l.split("=")[1].replace('"',"").replace("/>","")
-			        break
+				l=line.replace("\n","")
+				if(l.find("replacedBy")!=-1):
+					new_link=l.split("=")[1].replace('"',"").replace("/>","")
+					break
 			f.close()
 			
 			if(new_link!=""):
-			    id_=new_link.split("/")[-1]
-			    f = urllib.request.urlopen(new_link+".rdf")
-			    file = f.read()
-			    f=open("rdf_data/"+p+".rdf","w")
-			    f.writelines(str(file).replace("b'","").replace("'",'"').replace('\\"','"').replace("\\n",'\n').replace('>"','>'))
-			    f.close()
+				id_=new_link.split("/")[-1]
+				f = urllib.request.urlopen(new_link+".rdf")
+				file = f.read()
+				f=open(os.path.join(self.folder+"rdf_data", p+".rdf"),"w")
+				f.writelines(str(file).replace("b'","").replace("'",'"').replace('\\"','"').replace("\\n",'\n').replace('>"','>'))
+				f.close()
 
 			link = "https://www.uniprot.org/uniprot/"+id_+".fasta"
 			f = urllib.request.urlopen(link)
@@ -198,22 +198,22 @@ class PreProcessing:
 			f.writelines(str(file))
 			f.close()
 
-			f=open("sequence_data/"+p+".fasta", "w")
+			f=open( os.path.join("sequence_data", p+".fasta"), "w")
 			f.close()
 
 			f=open(folder+"tempseq.txt","r")
 			for line in f:
-				with open("sequence_data/"+p+".fasta", "a") as myfile:
+				with open( os.path.join("sequence_data", p+".fasta"), "a") as myfile:
 					myfile.write(">"+p+"\n")
 				l=str(line).replace("b'","").replace("'","").split("\\n")
 				c=0
 				for l_ in l:
 					if(l_!="" and l_.find(">")==-1):
-						with open("sequence_data/"+p+".fasta", "a") as myfile:
+						with open( os.path.join("sequence_data", p+".fasta"), "a") as myfile:
 							myfile.write(l_)
 					c+=1
 					if(c==len(l)):
-						with open("sequence_data/"+p+".fasta", "a") as myfile:
+						with open( os.path.join("sequence_data", p+".fasta"), "a") as myfile:
 							myfile.write("\n")
 			f.close()
 		except:

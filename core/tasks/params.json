@@ -1,0 +1,12 @@
+{
+	"name": "Protein interaction prediction in datasets formed by reference data from validated interactions",
+	"description": "The main goal of this experiment is evaluate the PredPPI workflow against the reference PPI datasets which were experimentally validated / manually curated.",
+	"owner": "Yasmmin",
+	"email": "yasmmin.c.martins@gmail.com",
+	"datasets": [
+		{ "prefix": "random_ds_1_", "folder": "running_example/random_ds_1/", "description": "It was built with 100 positive pairs from hprd, dip and biogrid and 100 false pairs from STRING (score between 100 and 200) " },
+		{ "prefix": "random_ds_2_", "folder": "running_example/random_ds_2/", "description": "It was built with 100 positive pairs from biogrid and 100 false pairs from STRING (score between 100 and 200) " },
+		{ "prefix": "random_ds_3_", "folder": "running_example/random_ds_3/", "description": "It was built with 100 positive pairs from biogrid and 100 false pairs from STRING (score between 100 and 200) " },
+		
+	]
+}

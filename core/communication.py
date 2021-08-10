@@ -2,7 +2,7 @@ import smtp
 import os
 class Communication:
 	def send_success_email(task: luigi.Task) -> None:
-		fromaddr = "example@gmail.com"
+		fromaddr = "ycfrenchgirl2@gmail.com"
         toaddr = os.environ['email_owner']
         msg = MIMEMultipart()
         msg['From'] = fromaddr

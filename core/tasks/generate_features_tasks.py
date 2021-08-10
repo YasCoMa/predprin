@@ -25,7 +25,7 @@ class GenerateFeaturesTask(luigi.Task, TimeTaskMixin):
 		yield InitializeVariablesTask(self.folder, self.prefix)
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/generate_features.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "generate_features.txt") )
 
 class GetFeatureVectorTask(luigi.Task, TimeTaskMixin):
 	folder = luigi.Parameter()
@@ -63,13 +63,13 @@ class GetFeatureVectorTask(luigi.Task, TimeTaskMixin):
 			class_=pairs[p]
 			pair=p.split(",")
 
-			u.calc_write_go(pair, graph_go, self.folder)
-			u.calc_write_pfam(pair, self.folder)
-			u.calc_write_pathway(pair, self.folder)
-			u.calc_write_sequence(pair, self.folder)
+			metrics=u.calc_write_go(pair, graph_go, self.folder)
+			metrics.append(u.calc_write_pfam(pair, self.folder))
+			metrics.append(u.calc_write_pathway(pair, self.folder))
+			metrics.append(u.calc_write_sequence(pair, self.folder))
 
 			with open(self.folder+"dataset_ppi.txt", "a") as g:
-				g.write(" "+class_+"\n")
+				g.write((" ".join(metrics))+" "+class_+"\n")
 
 			#infos=[ ['go_cc','go_bp','go_mf'], ['pfam'], ['ko'] ]
 			#for information in infos:
@@ -78,4 +78,4 @@ class GetFeatureVectorTask(luigi.Task, TimeTaskMixin):
 		self.output().open("w").close()
 
 	def output(self):
-		return luigi.LocalTarget(self.folder+"log/get_feature_vector.txt")
+		return luigi.LocalTarget( os.path.join(self.folder+"log", "get_feature_vector.txt") )
