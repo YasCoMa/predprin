@@ -43,16 +43,11 @@ The steps below consider the creation of a sqlite database file with all he task
 * Preparation:
 	1. ````git clone https://github.com/YasCoMa/predprin.git````
 	2. ````cd PredPrIn````
-<<<<<<< HEAD
 	3. Uncompress annotation_data.zip
 	4. Uncompress rdf_data.zip
 	5. Uncompress sequence_data.zip
 	6. Download SPRINT pre-computed similarities in https://www.csd.uwo.ca/~ilie/SPRINT/precomputed_similarities.zip and unzip it inside core/sprint/HSP/
 	7. Certify that there is a file named client.cfg (to configure the history log and feed the sqlite database). It must have the following data:
-=======
-	3. Download SPRINT pre-computed similarities in https://www.csd.uwo.ca/~ilie/SPRINT/precomputed_similarities.zip and unzip it inside core/sprint/HSP/
-	4. Certify that there is a file named client.cfg (to configure the history log and feed the sqlite database). It must have the following data:
->>>>>>> 8dc5ec32d21c3e81236699f24770d9cd13154b8f
 	````
 	[core]
 	default-scheduler-host=localhost
