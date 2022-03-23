@@ -79,6 +79,8 @@ The steps below consider the creation of a sqlite database file with all he task
 	You can monitor the prediction experiment execution in localhost:8082
 
 ## Reference
+Martins YC, Ziviani A, Nicolás MF, de Vasconcelos AT. Large-Scale Protein Interactions Prediction by Multiple Evidence Analysis Associated With an In-Silico Curation Strategy. Frontiers in Bioinformatics. 2021:38.
+https://www.frontiersin.org/articles/10.3389/fbinf.2021.731345/full
 
 ## Bug Report
 Please, use the [Issue](https://github.com/YasCoMa/PredPrIn/issues) tab to report any bug.
