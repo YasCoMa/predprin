@@ -1,0 +1,6 @@
+luigi
+sqlalchemy
+rdflib
+sklearn
+matplotlib
+numpy

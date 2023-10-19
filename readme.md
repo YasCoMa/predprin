@@ -37,14 +37,15 @@ The steps below consider the creation of a sqlite database file with all he task
 * Preparation:
 	1. ````git clone https://github.com/YasCoMa/predprin.git````
 	2. ````cd PredPrIn````
-	3. Download annotation_data.zip (https://drive.google.com/file/d/1bWPSyULaooj7GTrDf6QBY3ZyeyH5MRpm/view?usp=share_link)
-	4. Download rdf_data.zip (https://drive.google.com/file/d/1Cp511ioXiw2PiOHdkxa4XsZnxOeM3Pan/view?usp=share_link)
-	5. Download sequence_data.zip (https://drive.google.com/file/d/1uEKh5EF9X_6fgZ9cTTp0jW3XaL48stxA/view?usp=share_link)
-	6. Unzip annotation_data.zip
-	7. Unzip rdf_data.zip
-	8. Unzip sequence_data.zip
-	9. Download SPRINT pre-computed similarities in https://www.csd.uwo.ca/~ilie/SPRINT/precomputed_similarities.zip and unzip it inside core/sprint/HSP/
-	10. Certify that there is a file named client.cfg (to configure the history log and feed the sqlite database). It must have the following data:
+	3. `pip3 install -r requirements.txt`
+	4. Download annotation_data.zip (https://drive.google.com/file/d/1bWPSyULaooj7GTrDf6QBY3ZyeyH5MRpm/view?usp=share_link)
+	5. Download rdf_data.zip (https://drive.google.com/file/d/1Cp511ioXiw2PiOHdkxa4XsZnxOeM3Pan/view?usp=share_link)
+	6. Download sequence_data.zip (https://drive.google.com/file/d/1uEKh5EF9X_6fgZ9cTTp0jW3XaL48stxA/view?usp=share_link)
+	7. Unzip annotation_data.zip
+	8. Unzip rdf_data.zip
+	9. Unzip sequence_data.zip
+	10. Download SPRINT pre-computed similarities in https://www.csd.uwo.ca/~ilie/SPRINT/precomputed_similarities.zip and unzip it inside core/sprint/HSP/
+	11. Certify that there is a file named client.cfg (to configure the history log and feed the sqlite database). It must have the following data:
 	````
 	[core]
 	default-scheduler-host=localhost
